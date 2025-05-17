@@ -1,0 +1,42 @@
+import React, { useEffect, useState } from "react";
+
+const quotes = [
+  "Believe you can and you're halfway there.",
+  "Push yourself, because no one else is going to do it for you.",
+  "Great things never come from comfort zones.",
+  "Dream it. Wish it. Do it.",
+  "Success doesn’t just find you. You have to go out and get it.",
+  "The harder you work for something, the greater you’ll feel when you achieve it."
+];
+
+export default function DailyMotivation() {
+  const [quote, setQuote] = useState("");
+
+  useEffect(() => {
+    const today = new Date();
+    const index = today.getDate() % quotes.length;
+    setQuote(quotes[index]);
+  }, []);
+
+  return (
+    <main className="flex min-h-screen flex-col items-center justify-center bg-gradient-to-br from-yellow-100 to-yellow-300 p-4 text-center">
+      <h1 className="text-3xl font-bold mb-6">Daily Motivation</h1>
+      <blockquote className="text-xl italic max-w-xl">“{quote}”</blockquote>
+      <div className="mt-6 flex gap-4">
+        <button
+          onClick={() => navigator.clipboard.writeText(quote)}
+          className="bg-white px-4 py-2 rounded-xl shadow-md hover:bg-yellow-100"
+        >
+          Copy
+        </button>
+        <button
+          onClick={() => window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(quote)}`, '_blank')}
+          className="bg-white px-4 py-2 rounded-xl shadow-md hover:bg-yellow-100"
+        >
+          Share on Twitter
+        </button>
+      </div>
+      <div className="mt-10 text-sm text-gray-600">Made by MadinedApps</div>
+    </main>
+  );
+}
